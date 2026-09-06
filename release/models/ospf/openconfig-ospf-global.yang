@@ -23,8 +23,14 @@ submodule openconfig-ospf-global {
     "This submodule provides common OSPF configuration and operational
     state parameters that are global to a particular OSPF instance";
 
-  oc-ext:openconfig-version "0.1.1";
+  oc-ext:openconfig-version "0.2.0";
 
+  revision "2026-09-06" {
+    description
+      "Add an nsr container to the OSPF global structure, matching
+      the equivalent container on the ISIS global config.";
+    reference "0.2.0";
+  }
   revision "2025-08-10" {
     description
       "Removed duplicate import and updated prefixes in openconfig-ospf-area";
@@ -177,6 +183,23 @@ submodule openconfig-ospf-global {
         indicate that it is restarting, but will accept Grace-LSAs
         from remote systems, and suppress withdrawl of adjacencies
         of the system for the grace period specified";
+    }
+  }
+
+  grouping ospf-global-nsr-config {
+    description
+      "Re-usable grouping to enable or disable Non-Stop Routing (NSR)
+      for OSPF.";
+
+    leaf enabled {
+      type boolean;
+      default false;
+      description
+        "When set to true, Non-Stop Routing (NSR) is enabled for
+        OSPF, allowing the standby supervisor to take over routing
+        without requiring the OSPF protocol to restart, in contrast
+        to graceful restart which relies on signalling with
+        neighbours.";
     }
   }
 
@@ -374,6 +397,27 @@ submodule openconfig-ospf-global {
             "Operational state parameters relating to OSPF graceful
             restart";
           uses ospf-global-graceful-restart-config;
+        }
+      }
+
+      container nsr {
+        description
+          "Configuration and operational state parameters for OSPF
+          Non-Stop Routing (NSR)";
+
+        container config {
+          description
+            "Configuration parameters relating to OSPF Non-Stop
+            Routing (NSR)";
+          uses ospf-global-nsr-config;
+        }
+
+        container state {
+          config false;
+          description
+            "Operational state parameters relating to OSPF Non-Stop
+            Routing (NSR)";
+          uses ospf-global-nsr-config;
         }
       }
 

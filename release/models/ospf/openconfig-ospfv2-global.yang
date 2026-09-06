@@ -23,8 +23,14 @@ submodule openconfig-ospfv2-global {
     "This submodule provides OSPFv2 configuration and operational
     state parameters that are global to a particular OSPF instance";
 
-  oc-ext:openconfig-version "0.5.2";
+  oc-ext:openconfig-version "0.6.0";
 
+  revision "2026-09-06" {
+    description
+      "Add an nsr container to the OSPFv2 global structure, matching
+      the equivalent container on the ISIS global config.";
+    reference "0.6.0";
+  }
   revision "2024-06-17" {
     description
       "Correct ROUTER_INFORMATION_LSA to ROUTER_INFORMATION.";
@@ -304,6 +310,23 @@ submodule openconfig-ospfv2-global {
     }
   }
 
+  grouping ospfv2-global-nsr-config {
+    description
+      "Re-usable grouping to enable or disable Non-Stop Routing (NSR)
+      for OSPFv2.";
+
+    leaf enabled {
+      type boolean;
+      default false;
+      description
+        "When set to true, Non-Stop Routing (NSR) is enabled for
+        OSPFv2, allowing the standby supervisor to take over routing
+        without requiring the OSPFv2 protocol to restart, in
+        contrast to graceful restart which relies on signalling with
+        neighbours.";
+    }
+  }
+
   grouping ospfv2-global-inter-areapp-config {
     description
       "Configuration parameters for OSPFv2 policies which propagate
@@ -498,6 +521,27 @@ submodule openconfig-ospfv2-global {
             "Operational state parameters relating to OSPFv2 graceful
             restart";
           uses ospfv2-global-graceful-restart-config;
+        }
+      }
+
+      container nsr {
+        description
+          "Configuration and operational state parameters for OSPFv2
+          Non-Stop Routing (NSR)";
+
+        container config {
+          description
+            "Configuration parameters relating to OSPFv2 Non-Stop
+            Routing (NSR)";
+          uses ospfv2-global-nsr-config;
+        }
+
+        container state {
+          config false;
+          description
+            "Operational state parameters relating to OSPFv2
+            Non-Stop Routing (NSR)";
+          uses ospfv2-global-nsr-config;
         }
       }
 
