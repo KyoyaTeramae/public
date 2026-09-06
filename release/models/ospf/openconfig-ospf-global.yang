@@ -27,10 +27,11 @@ submodule openconfig-ospf-global {
 
   revision "2026-09-06" {
     description
-      "Add a second-delay leaf to the SPF and LSA generation timer
-      groupings to support a three-stage (initial, second, maximum)
-      exponential backoff, consistent with the equivalent IS-IS
-      timers.";
+      "Add a minimum-hold leaf to the SPF and LSA generation timer
+      groupings to support a three-stage (initial delay, minimum
+      hold, maximum delay) exponential backoff, matching the Cisco
+      IOS-XR 'timers throttle spf' minimum hold time and the
+      equivalent IS-IS timers.";
     reference "0.2.0";
   }
   revision "2025-08-10" {
@@ -104,16 +105,17 @@ submodule openconfig-ospf-global {
         algorithm.";
     }
 
-    leaf second-delay {
+    leaf minimum-hold {
       type uint32;
       units msec;
       description
-        "The value of this leaf specifies the delay between the
-        first and second runs of the SPF algorithm following a
-        topology change. Together with initial-delay and
-        maximum-delay, this leaf allows a three-stage exponential
-        backoff (first-wait, second-wait, max-wait) to be
-        configured, matching the equivalent IS-IS SPF timers.";
+        "The value of this leaf specifies the minimum hold time
+        between consecutive SPF runs, once the initial run governed
+        by initial-delay has occurred. Together with initial-delay
+        and maximum-delay, this leaf allows a three-stage
+        exponential backoff to be configured, matching the Cisco
+        IOS-XR 'timers throttle spf' minimum hold time and the
+        equivalent IS-IS SPF timers.";
     }
 
     leaf maximum-delay {
@@ -142,17 +144,17 @@ submodule openconfig-ospf-global {
         generation of that LSA.";
     }
 
-    leaf second-delay {
+    leaf minimum-hold {
       type uint32;
       units msec;
       description
-        "The value of this leaf specifies the delay between the
-        first and second generation of an LSA following a change
-        that requires it to be regenerated. Together with
-        initial-delay and maximum-delay, this leaf allows a
-        three-stage exponential backoff (first-wait, second-wait,
-        max-wait) to be configured, matching the equivalent IS-IS
-        LSP generation timers.";
+        "The value of this leaf specifies the minimum hold time
+        between consecutive generations of an LSA, once the initial
+        generation governed by initial-delay has occurred. Together
+        with initial-delay and maximum-delay, this leaf allows a
+        three-stage exponential backoff to be configured, matching
+        the Cisco IOS-XR 'timers throttle lsa' minimum hold time and
+        the equivalent IS-IS LSP generation timers.";
     }
 
     leaf maximum-delay {

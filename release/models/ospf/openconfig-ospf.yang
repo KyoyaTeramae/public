@@ -31,10 +31,11 @@ module openconfig-ospf {
 
   revision "2026-09-06" {
     description
-      "Add a second-delay leaf to the SPF and LSA generation timer
-      groupings to support a three-stage (initial, second, maximum)
-      exponential backoff, consistent with the equivalent IS-IS
-      timers.";
+      "Add a minimum-hold leaf to the SPF and LSA generation timer
+      groupings to support a three-stage (initial delay, minimum
+      hold, maximum delay) exponential backoff, matching the Cisco
+      IOS-XR 'timers throttle spf' minimum hold time and the
+      equivalent IS-IS timers.";
     reference "0.2.0";
   }
   revision "2025-08-10" {
