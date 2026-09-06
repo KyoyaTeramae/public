@@ -34,8 +34,17 @@ module openconfig-ospfv2 {
     "An OpenConfig model for Open Shortest Path First (OSPF)
     version 2";
 
-  oc-ext:openconfig-version "0.5.2";
+  oc-ext:openconfig-version "0.6.0";
 
+  revision "2026-09-06" {
+    description
+      "Add a default-route-distance container to the OSPFv2 global
+      structure, providing administrative distance leafs for
+      intra-area, inter-area, and external OSPFv2 routes, matching
+      the intent of the equivalent container on the BGP global
+      config.";
+    reference "0.6.0";
+  }
   revision "2024-06-17" {
     description
       "Correct ROUTER_INFORMATION_LSA to ROUTER_INFORMATION.";

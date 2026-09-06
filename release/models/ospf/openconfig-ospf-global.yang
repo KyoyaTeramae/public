@@ -23,8 +23,17 @@ submodule openconfig-ospf-global {
     "This submodule provides common OSPF configuration and operational
     state parameters that are global to a particular OSPF instance";
 
-  oc-ext:openconfig-version "0.1.1";
+  oc-ext:openconfig-version "0.2.0";
 
+  revision "2026-09-06" {
+    description
+      "Add a default-route-distance container to the OSPF global
+      structure, providing administrative distance leafs for
+      intra-area, inter-area, and external OSPF routes, matching
+      the intent of the equivalent container on the BGP global
+      config.";
+    reference "0.2.0";
+  }
   revision "2025-08-10" {
     description
       "Removed duplicate import and updated prefixes in openconfig-ospf-area";
@@ -177,6 +186,40 @@ submodule openconfig-ospf-global {
         indicate that it is restarting, but will accept Grace-LSAs
         from remote systems, and suppress withdrawl of adjacencies
         of the system for the grace period specified";
+    }
+  }
+
+  grouping ospf-global-default-route-distance-config {
+    description
+      "Configuration options relating to the administrative distance
+      (or preference) assigned to routes received from different
+      OSPF route types. OSPF distinguishes intra-area, inter-area,
+      and external routes (rather than the internal/external split
+      used by BGP and ISIS), so a separate leaf is provided for
+      each.";
+
+    leaf intra-area-route-distance {
+      type uint8 {
+        range "1..255";
+      }
+      description
+        "Administrative distance for intra-area OSPF routes.";
+    }
+
+    leaf inter-area-route-distance {
+      type uint8 {
+        range "1..255";
+      }
+      description
+        "Administrative distance for inter-area OSPF routes.";
+    }
+
+    leaf external-route-distance {
+      type uint8 {
+        range "1..255";
+      }
+      description
+        "Administrative distance for external OSPF routes.";
     }
   }
 
@@ -374,6 +417,27 @@ submodule openconfig-ospf-global {
             "Operational state parameters relating to OSPF graceful
             restart";
           uses ospf-global-graceful-restart-config;
+        }
+      }
+
+      container default-route-distance {
+        description
+          "Administrative distance (or preference) assigned to
+          routes received via different OSPF route types (intra-area,
+          inter-area, external)";
+
+        container config {
+          description
+            "Configuration parameters relating to the default route
+            distance";
+          uses ospf-global-default-route-distance-config;
+        }
+
+        container state {
+          config false;
+          description
+            "State information relating to the default route distance";
+          uses ospf-global-default-route-distance-config;
         }
       }
 

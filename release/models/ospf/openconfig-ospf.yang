@@ -27,9 +27,17 @@ module openconfig-ospf {
     "This module provides common OSPF configuration and operational
     state parameters that are shared across multiple contexts";
 
-  oc-ext:openconfig-version "0.1.1";
+  oc-ext:openconfig-version "0.2.0";
 
-
+  revision "2026-09-06" {
+    description
+      "Add a default-route-distance container to the OSPF global
+      structure, providing administrative distance leafs for
+      intra-area, inter-area, and external OSPF routes, matching
+      the intent of the equivalent container on the BGP global
+      config.";
+    reference "0.2.0";
+  }
   revision "2025-08-10" {
     description
       "Removed duplicate import and updated prefixes in openconfig-ospf-area";
