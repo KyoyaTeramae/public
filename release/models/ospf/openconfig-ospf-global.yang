@@ -23,8 +23,16 @@ submodule openconfig-ospf-global {
     "This submodule provides common OSPF configuration and operational
     state parameters that are global to a particular OSPF instance";
 
-  oc-ext:openconfig-version "0.1.1";
+  oc-ext:openconfig-version "0.2.0";
 
+  revision "2026-09-06" {
+    description
+      "Add a second-delay leaf to the SPF and LSA generation timer
+      groupings to support a three-stage (initial, second, maximum)
+      exponential backoff, consistent with the equivalent IS-IS
+      timers.";
+    reference "0.2.0";
+  }
   revision "2025-08-10" {
     description
       "Removed duplicate import and updated prefixes in openconfig-ospf-area";
@@ -96,6 +104,18 @@ submodule openconfig-ospf-global {
         algorithm.";
     }
 
+    leaf second-delay {
+      type uint32;
+      units msec;
+      description
+        "The value of this leaf specifies the delay between the
+        first and second runs of the SPF algorithm following a
+        topology change. Together with initial-delay and
+        maximum-delay, this leaf allows a three-stage exponential
+        backoff (first-wait, second-wait, max-wait) to be
+        configured, matching the equivalent IS-IS SPF timers.";
+    }
+
     leaf maximum-delay {
       // rjs TODO: same question as above
       type uint32;
@@ -106,12 +126,6 @@ submodule openconfig-ospf-global {
         running. This value is used for implementations that support
         increasing the wait time between SPF runs.";
     }
-
-    // rjs TODO: some questions here around what we should specify:
-    // JUNOS has rapid-runs and holddown
-    // Cisco has maximum time between runs, and then a doubling of
-    // the wait interval up to that maximum.
-    // ALU has first-wait, second-wait, max-wait
   }
 
   grouping ospf-global-lsa-generation-timers-config {
@@ -126,6 +140,19 @@ submodule openconfig-ospf-global {
         "The value of this leaf specifies the time between the first
         time an LSA is generated and advertised and the subsequent
         generation of that LSA.";
+    }
+
+    leaf second-delay {
+      type uint32;
+      units msec;
+      description
+        "The value of this leaf specifies the delay between the
+        first and second generation of an LSA following a change
+        that requires it to be regenerated. Together with
+        initial-delay and maximum-delay, this leaf allows a
+        three-stage exponential backoff (first-wait, second-wait,
+        max-wait) to be configured, matching the equivalent IS-IS
+        LSP generation timers.";
     }
 
     leaf maximum-delay {
