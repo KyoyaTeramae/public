@@ -27,11 +27,11 @@ submodule openconfig-ospf-global {
 
   revision "2026-09-06" {
     description
-      "Add a default-route-distance container to the OSPF global
-      structure, providing administrative distance leafs for
-      intra-area, inter-area, and external OSPF routes, matching
-      the intent of the equivalent container on the BGP global
-      config.";
+      "Add a route-preference container to the OSPF global
+      structure, providing administrative distance (preference)
+      leafs for intra-area, inter-area, and external OSPF routes,
+      matching the naming used by the equivalent route-preference
+      container on the ISIS global config.";
     reference "0.2.0";
   }
   revision "2025-08-10" {
@@ -189,37 +189,41 @@ submodule openconfig-ospf-global {
     }
   }
 
-  grouping ospf-global-default-route-distance-config {
+  grouping ospf-global-route-preference-config {
     description
       "Configuration options relating to the administrative distance
       (or preference) assigned to routes received from different
       OSPF route types. OSPF distinguishes intra-area, inter-area,
       and external routes (rather than the internal/external split
       used by BGP and ISIS), so a separate leaf is provided for
-      each.";
+      each, matching the naming used by the equivalent ISIS
+      route-preference grouping.";
 
-    leaf intra-area-route-distance {
+    leaf intra-area-route-preference {
       type uint8 {
         range "1..255";
       }
       description
-        "Administrative distance for intra-area OSPF routes.";
+        "Administrative distance (preference) for intra-area OSPF
+        routes.";
     }
 
-    leaf inter-area-route-distance {
+    leaf inter-area-route-preference {
       type uint8 {
         range "1..255";
       }
       description
-        "Administrative distance for inter-area OSPF routes.";
+        "Administrative distance (preference) for inter-area OSPF
+        routes.";
     }
 
-    leaf external-route-distance {
+    leaf external-route-preference {
       type uint8 {
         range "1..255";
       }
       description
-        "Administrative distance for external OSPF routes.";
+        "Administrative distance (preference) for external OSPF
+        routes.";
     }
   }
 
@@ -420,7 +424,7 @@ submodule openconfig-ospf-global {
         }
       }
 
-      container default-route-distance {
+      container route-preference {
         description
           "Administrative distance (or preference) assigned to
           routes received via different OSPF route types (intra-area,
@@ -428,16 +432,17 @@ submodule openconfig-ospf-global {
 
         container config {
           description
-            "Configuration parameters relating to the default route
-            distance";
-          uses ospf-global-default-route-distance-config;
+            "Configuration parameters relating to the OSPF route
+            preference";
+          uses ospf-global-route-preference-config;
         }
 
         container state {
           config false;
           description
-            "State information relating to the default route distance";
-          uses ospf-global-default-route-distance-config;
+            "State information relating to the OSPF route
+            preference";
+          uses ospf-global-route-preference-config;
         }
       }
 

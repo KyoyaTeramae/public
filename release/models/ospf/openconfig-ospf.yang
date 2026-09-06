@@ -31,11 +31,11 @@ module openconfig-ospf {
 
   revision "2026-09-06" {
     description
-      "Add a default-route-distance container to the OSPF global
-      structure, providing administrative distance leafs for
-      intra-area, inter-area, and external OSPF routes, matching
-      the intent of the equivalent container on the BGP global
-      config.";
+      "Add a route-preference container to the OSPF global
+      structure, providing administrative distance (preference)
+      leafs for intra-area, inter-area, and external OSPF routes,
+      matching the naming used by the equivalent route-preference
+      container on the ISIS global config.";
     reference "0.2.0";
   }
   revision "2025-08-10" {
