@@ -27,11 +27,10 @@ submodule openconfig-ospfv2-global {
 
   revision "2026-09-06" {
     description
-      "Add a route-preference container to the OSPFv2 global
-      structure, providing administrative distance (preference)
-      leafs for intra-area, inter-area, and external OSPFv2 routes,
-      matching the naming used by the equivalent route-preference
-      container on the ISIS global config.";
+      "Add route-preference container to OSPFv2 global structure,
+      providing administrative distance (preference) leafs for
+      intra-area, inter-area and external OSPFv2 routes, equivalent
+      to those of ISIS global config.";
     reference "0.6.0";
   }
   revision "2024-06-17" {
@@ -313,44 +312,6 @@ submodule openconfig-ospfv2-global {
     }
   }
 
-  grouping ospfv2-global-route-preference-config {
-    description
-      "Configuration options relating to the administrative distance
-      (or preference) assigned to routes received from different
-      OSPFv2 route types. OSPF distinguishes intra-area, inter-area,
-      and external routes (rather than the internal/external split
-      used by BGP and ISIS), so a separate leaf is provided for
-      each, matching the naming used by the equivalent ISIS
-      route-preference grouping.";
-
-    leaf intra-area-route-preference {
-      type uint8 {
-        range "1..255";
-      }
-      description
-        "Administrative distance (preference) for intra-area OSPFv2
-        routes.";
-    }
-
-    leaf inter-area-route-preference {
-      type uint8 {
-        range "1..255";
-      }
-      description
-        "Administrative distance (preference) for inter-area OSPFv2
-        routes.";
-    }
-
-    leaf external-route-preference {
-      type uint8 {
-        range "1..255";
-      }
-      description
-        "Administrative distance (preference) for external OSPFv2
-        routes.";
-    }
-  }
-
   grouping ospfv2-global-inter-areapp-config {
     description
       "Configuration parameters for OSPFv2 policies which propagate
@@ -378,6 +339,42 @@ submodule openconfig-ospfv2-global {
 
     uses oc-rpol:apply-policy-import-config;
     uses oc-rpol:default-policy-import-config;
+  }
+
+  grouping ospfv2-global-route-preference-config {
+    description
+      "Configuration options relating to the administrative distance
+      (preference) assigned to routes per different OSPFv2 route
+      type, intra-area, inter-area and external routes. Equivalent
+      to external-route-preference and internal-route-preference of
+      ISIS route-preference grouping.";
+
+    leaf intra-area-route-preference {
+      type uint8 {
+        range "1..255";
+      }
+      description
+        "Administrative distance (preference) for intra-area OSPFv2
+        routes.";
+    }
+
+    leaf inter-area-route-preference {
+      type uint8 {
+        range "1..255";
+      }
+      description
+        "Administrative distance (preference) for inter-area OSPFv2
+        routes.";
+    }
+
+    leaf external-route-preference {
+      type uint8 {
+        range "1..255";
+      }
+      description
+        "Administrative distance (preference) for external OSPFv2
+        routes.";
+    }
   }
 
   grouping ospfv2-global-max-metric-config {
@@ -587,28 +584,6 @@ submodule openconfig-ospfv2-global {
         }
       }
 
-      container route-preference {
-        description
-          "Administrative distance (or preference) assigned to
-          routes received via different OSPFv2 route types
-          (intra-area, inter-area, external)";
-
-        container config {
-          description
-            "Configuration parameters relating to the OSPFv2 route
-            preference";
-          uses ospfv2-global-route-preference-config;
-        }
-
-        container state {
-          config false;
-          description
-            "State information relating to the OSPFv2 route
-            preference";
-          uses ospfv2-global-route-preference-config;
-        }
-      }
-
       container inter-area-propagation-policies {
         description
           "Policies defining how inter-area propagation should be performed
@@ -651,6 +626,28 @@ submodule openconfig-ospfv2-global {
               propagation policy";
             uses ospfv2-global-inter-areapp-config;
           }
+        }
+      }
+
+      container route-preference {
+        description
+          "Administrative distance (or preference) assigned to
+          routes received via different OSPFv2 route types
+          (intra-area, inter-area, external)";
+
+        container config {
+          description
+            "Configuration parameters relating to the OSPFv2 route
+            preference";
+          uses ospfv2-global-route-preference-config;
+        }
+
+        container state {
+          config false;
+          description
+            "State information relating to the OSPFv2 route
+            preference";
+          uses ospfv2-global-route-preference-config;
         }
       }
     }

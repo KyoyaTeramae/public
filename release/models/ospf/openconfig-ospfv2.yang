@@ -38,11 +38,10 @@ module openconfig-ospfv2 {
 
   revision "2026-09-06" {
     description
-      "Add a route-preference container to the OSPFv2 global
-      structure, providing administrative distance (preference)
-      leafs for intra-area, inter-area, and external OSPFv2 routes,
-      matching the naming used by the equivalent route-preference
-      container on the ISIS global config.";
+      "Add route-preference container to OSPFv2 global structure,
+      providing administrative distance (preference) leafs for
+      intra-area, inter-area and external OSPFv2 routes, equivalent
+      to those of ISIS global config.";
     reference "0.6.0";
   }
   revision "2024-06-17" {
