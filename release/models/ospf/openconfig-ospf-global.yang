@@ -27,9 +27,8 @@ submodule openconfig-ospf-global {
 
   revision "2026-09-06" {
     description
-      "Add a reference-bandwidth container to the OSPF global
-      structure, matching the equivalent container on the ISIS
-      global config.";
+      "Add reference-bandwidth container to OSPF global structure,
+      equivalent to that of ISIS global config.";
     reference "0.2.0";
   }
   revision "2025-08-10" {
@@ -187,21 +186,6 @@ submodule openconfig-ospf-global {
     }
   }
 
-  grouping ospf-global-reference-bandwidth-config {
-    description
-      "Configuration parameters relating to the OSPF auto-cost
-      reference bandwidth.";
-
-    leaf reference-bandwidth {
-      type uint32;
-      description
-        "The reference bandwidth, in Mbit/s, used by the local
-        system to calculate the default metric for an interface
-        based on its bandwidth. Equivalent to the
-        reference-bandwidth leaf on the ISIS global config.";
-    }
-  }
-
   grouping ospf-global-inter-areapp-config {
     description
       "Configuration parameters for OSPF policies which propagate
@@ -229,6 +213,21 @@ submodule openconfig-ospf-global {
 
     uses oc-rpol:apply-policy-import-config;
     uses oc-rpol:default-policy-import-config;
+  }
+
+  grouping ospf-global-reference-bandwidth-config {
+    description
+      "Configuration parameters relating to the OSPF auto-cost
+      reference bandwidth.";
+
+    leaf reference-bandwidth {
+      type uint32;
+      description
+        "The reference bandwidth, in Mbit/s, used by the local
+        system to calculate the default metric for an interface
+        based on its bandwidth. Equivalent to the
+        reference-bandwidth leaf on the ISIS global config.";
+    }
   }
 
   grouping ospf-global-max-metric-config {
@@ -399,27 +398,6 @@ submodule openconfig-ospf-global {
         }
       }
 
-      container reference-bandwidth {
-        description
-          "Configuration and operational state parameters relating
-          to the OSPF auto-cost reference bandwidth.";
-
-        container config {
-          description
-            "Configuration parameters relating to the OSPF auto-cost
-            reference bandwidth.";
-          uses ospf-global-reference-bandwidth-config;
-        }
-
-        container state {
-          config false;
-          description
-            "Operational state parameters relating to the OSPF
-            auto-cost reference bandwidth.";
-          uses ospf-global-reference-bandwidth-config;
-        }
-      }
-
       container inter-area-propagation-policies {
         description
           "Policies defining how inter-area propagation should be performed
@@ -462,6 +440,27 @@ submodule openconfig-ospf-global {
               propagation policy";
             uses ospf-global-inter-areapp-config;
           }
+        }
+      }
+
+      container reference-bandwidth {
+        description
+          "Configuration and operational state parameters relating
+          to the OSPF auto-cost reference bandwidth.";
+
+        container config {
+          description
+            "Configuration parameters relating to the OSPF auto-cost
+            reference bandwidth.";
+          uses ospf-global-reference-bandwidth-config;
+        }
+
+        container state {
+          config false;
+          description
+            "Operational state parameters relating to the OSPF
+            auto-cost reference bandwidth.";
+          uses ospf-global-reference-bandwidth-config;
         }
       }
     }

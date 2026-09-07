@@ -27,9 +27,8 @@ submodule openconfig-ospfv2-global {
 
   revision "2026-09-06" {
     description
-      "Add a reference-bandwidth container to the OSPFv2 global
-      structure, matching the equivalent container on the ISIS
-      global config.";
+      "Add reference-bandwidth container to OSPFv2 global structure,
+      equivalent to that of ISIS global config.";
     reference "0.6.0";
   }
   revision "2024-06-17" {
@@ -311,21 +310,6 @@ submodule openconfig-ospfv2-global {
     }
   }
 
-  grouping ospfv2-global-reference-bandwidth-config {
-    description
-      "Configuration parameters relating to the OSPFv2 auto-cost
-      reference bandwidth.";
-
-    leaf reference-bandwidth {
-      type uint32;
-      description
-        "The reference bandwidth, in Mbit/s, used by the local
-        system to calculate the default metric for an interface
-        based on its bandwidth. Equivalent to the
-        reference-bandwidth leaf on the ISIS global config.";
-    }
-  }
-
   grouping ospfv2-global-inter-areapp-config {
     description
       "Configuration parameters for OSPFv2 policies which propagate
@@ -353,6 +337,21 @@ submodule openconfig-ospfv2-global {
 
     uses oc-rpol:apply-policy-import-config;
     uses oc-rpol:default-policy-import-config;
+  }
+
+  grouping ospfv2-global-reference-bandwidth-config {
+    description
+      "Configuration parameters relating to the OSPFv2 auto-cost
+      reference bandwidth.";
+
+    leaf reference-bandwidth {
+      type uint32;
+      description
+        "The reference bandwidth, in Mbit/s, used by the local
+        system to calculate the default metric for an interface
+        based on its bandwidth. Equivalent to the
+        reference-bandwidth leaf on the ISIS global config.";
+    }
   }
 
   grouping ospfv2-global-max-metric-config {
@@ -562,27 +561,6 @@ submodule openconfig-ospfv2-global {
         }
       }
 
-      container reference-bandwidth {
-        description
-          "Configuration and operational state parameters relating
-          to the OSPFv2 auto-cost reference bandwidth.";
-
-        container config {
-          description
-            "Configuration parameters relating to the OSPFv2
-            auto-cost reference bandwidth.";
-          uses ospfv2-global-reference-bandwidth-config;
-        }
-
-        container state {
-          config false;
-          description
-            "Operational state parameters relating to the OSPFv2
-            auto-cost reference bandwidth.";
-          uses ospfv2-global-reference-bandwidth-config;
-        }
-      }
-
       container inter-area-propagation-policies {
         description
           "Policies defining how inter-area propagation should be performed
@@ -625,6 +603,27 @@ submodule openconfig-ospfv2-global {
               propagation policy";
             uses ospfv2-global-inter-areapp-config;
           }
+        }
+      }
+
+      container reference-bandwidth {
+        description
+          "Configuration and operational state parameters relating
+          to the OSPFv2 auto-cost reference bandwidth.";
+
+        container config {
+          description
+            "Configuration parameters relating to the OSPFv2
+            auto-cost reference bandwidth.";
+          uses ospfv2-global-reference-bandwidth-config;
+        }
+
+        container state {
+          config false;
+          description
+            "Operational state parameters relating to the OSPFv2
+            auto-cost reference bandwidth.";
+          uses ospfv2-global-reference-bandwidth-config;
         }
       }
     }
