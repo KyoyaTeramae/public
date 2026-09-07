@@ -31,8 +31,8 @@ module openconfig-ospf {
 
   revision "2026-09-06" {
     description
-      "Add a max-ecmp-paths leaf to the OSPF global config, matching
-      the equivalent leaf on the ISIS global config.";
+      "Add max-ecmp-paths leaf to OSPF global config, equivalent to
+      that of ISIS global config.";
     reference "0.2.0";
   }
   revision "2025-08-10" {

@@ -27,8 +27,8 @@ submodule openconfig-ospfv2-global {
 
   revision "2026-09-06" {
     description
-      "Add a max-ecmp-paths leaf to the OSPFv2 global config, matching
-      the equivalent leaf on the ISIS global config.";
+      "Add max-ecmp-paths leaf to OSPFv2 global config, equivalent to
+      that of ISIS global config.";
     reference "0.6.0";
   }
   revision "2024-06-17" {
@@ -200,8 +200,7 @@ submodule openconfig-ospfv2-global {
       description
         "The maximum number of equal-cost paths that OSPFv2 can
         install for a single destination. Equivalent to the
-        max-ecmp-paths leaf on the ISIS global config, and to
-        maximum-paths on the BGP global config.";
+        max-ecmp-paths of ISIS global config.";
     }
   }
 

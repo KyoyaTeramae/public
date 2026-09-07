@@ -21,7 +21,8 @@ submodule openconfig-ospf-common {
 
   revision "2026-09-06" {
     description
-      "Align revisions across modules.";
+      "Add max-ecmp-paths leaf to OSPF global config, equivalent to
+      that of ISIS global config.";
     reference "0.2.0";
   }
   revision "2025-08-10" {
