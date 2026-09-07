@@ -27,8 +27,8 @@ submodule openconfig-ospfv2-global {
 
   revision "2026-09-06" {
     description
-      "Add an nsr container to the OSPFv2 global structure, matching
-      the equivalent container on the ISIS global config.";
+      "Add nsr container to OSPFv2 global structure, equivalent to
+      that of ISIS global config.";
     reference "0.6.0";
   }
   revision "2024-06-17" {
@@ -310,23 +310,6 @@ submodule openconfig-ospfv2-global {
     }
   }
 
-  grouping ospfv2-global-nsr-config {
-    description
-      "Re-usable grouping to enable or disable Non-Stop Routing (NSR)
-      for OSPFv2.";
-
-    leaf enabled {
-      type boolean;
-      default false;
-      description
-        "When set to true, Non-Stop Routing (NSR) is enabled for
-        OSPFv2, allowing the standby supervisor to take over routing
-        without requiring the OSPFv2 protocol to restart, in
-        contrast to graceful restart which relies on signalling with
-        neighbours.";
-    }
-  }
-
   grouping ospfv2-global-inter-areapp-config {
     description
       "Configuration parameters for OSPFv2 policies which propagate
@@ -354,6 +337,21 @@ submodule openconfig-ospfv2-global {
 
     uses oc-rpol:apply-policy-import-config;
     uses oc-rpol:default-policy-import-config;
+  }
+
+  grouping ospfv2-global-admin-config {
+    description
+      "Re-usable grouping to enable or disable a particular OSPFv2
+      feature.";
+
+    leaf enabled {
+      type boolean;
+      default false;
+      description
+        "When set to true, the functionality within which this leaf
+        is defined is enabled; when set to false it is explicitly
+        disabled.";
+    }
   }
 
   grouping ospfv2-global-max-metric-config {
@@ -524,27 +522,6 @@ submodule openconfig-ospfv2-global {
         }
       }
 
-      container nsr {
-        description
-          "Configuration and operational state parameters for OSPFv2
-          Non-Stop Routing (NSR)";
-
-        container config {
-          description
-            "Configuration parameters relating to OSPFv2 Non-Stop
-            Routing (NSR)";
-          uses ospfv2-global-nsr-config;
-        }
-
-        container state {
-          config false;
-          description
-            "Operational state parameters relating to OSPFv2
-            Non-Stop Routing (NSR)";
-          uses ospfv2-global-nsr-config;
-        }
-      }
-
       container mpls {
         description
           "OSPFv2 parameters relating to MPLS";
@@ -626,6 +603,27 @@ submodule openconfig-ospfv2-global {
               propagation policy";
             uses ospfv2-global-inter-areapp-config;
           }
+        }
+      }
+
+      container nsr {
+        description
+          "Configuration and operational state parameters for OSPFv2
+          Non-Stop Routing (NSR)";
+
+        container config {
+          description
+            "Configuration parameters relating to OSPFv2 Non-Stop
+            Routing (NSR)";
+          uses ospfv2-global-admin-config;
+        }
+
+        container state {
+          config false;
+          description
+            "Operational state parameters relating to OSPFv2
+            Non-Stop Routing (NSR)";
+          uses ospfv2-global-admin-config;
         }
       }
     }
