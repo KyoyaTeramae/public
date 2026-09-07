@@ -38,11 +38,9 @@ module openconfig-ospfv2 {
 
   revision "2026-09-06" {
     description
-      "Add a minimum-hold leaf to the SPF and LSA generation timer
-      groupings to support a three-stage (initial delay, minimum
-      hold, maximum delay) exponential backoff, matching the Cisco
-      IOS-XR 'timers throttle spf' minimum hold time and the
-      equivalent IS-IS timers.";
+      "Add minimum-hold leaf to OSPFv2 global timers, equivalent to
+      spf-second-interval and lsp-second-wait-interval of IS-IS
+      global timers.";
     reference "0.6.0";
   }
   revision "2024-06-17" {

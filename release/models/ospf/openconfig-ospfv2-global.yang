@@ -27,11 +27,9 @@ submodule openconfig-ospfv2-global {
 
   revision "2026-09-06" {
     description
-      "Add a minimum-hold leaf to the SPF and LSA generation timer
-      groupings to support a three-stage (initial delay, minimum
-      hold, maximum delay) exponential backoff, matching the Cisco
-      IOS-XR 'timers throttle spf' minimum hold time and the
-      equivalent IS-IS timers.";
+      "Add minimum-hold leaf to OSPFv2 global timers, equivalent to
+      spf-second-interval and lsp-second-wait-interval of IS-IS
+      global timers.";
     reference "0.6.0";
   }
   revision "2024-06-17" {
@@ -220,12 +218,8 @@ submodule openconfig-ospfv2-global {
       units msec;
       description
         "The value of this leaf specifies the minimum hold time
-        between consecutive SPF runs, once the initial run governed
-        by initial-delay has occurred. Together with initial-delay
-        and maximum-delay, this leaf allows a three-stage
-        exponential backoff to be configured, matching the Cisco
-        IOS-XR 'timers throttle spf' minimum hold time and the
-        equivalent IS-IS SPF timers.";
+        between consecutive SPF runs. Equivalent to
+        spf-second-interval of IS-IS SPF timer.";
     }
 
     leaf maximum-delay {
@@ -259,12 +253,8 @@ submodule openconfig-ospfv2-global {
       units msec;
       description
         "The value of this leaf specifies the minimum hold time
-        between consecutive generations of an LSA, once the initial
-        generation governed by initial-delay has occurred. Together
-        with initial-delay and maximum-delay, this leaf allows a
-        three-stage exponential backoff to be configured, matching
-        the Cisco IOS-XR 'timers throttle lsa' minimum hold time and
-        the equivalent IS-IS LSP generation timers.";
+        between consecutive generations of an LSA. Equivalent to
+        lsp-second-wait-interval of IS-IS LSP generation timer.";
     }
 
     leaf maximum-delay {

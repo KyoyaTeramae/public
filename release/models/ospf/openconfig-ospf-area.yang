@@ -26,7 +26,9 @@ submodule openconfig-ospf-area {
 
   revision "2026-09-06" {
     description
-      "Align revisions across modules.";
+      "Add minimum-hold leaf to OSPF global timers, equivalent to
+      spf-second-interval and lsp-second-wait-interval of IS-IS
+      global timers.";
     reference "0.2.0";
   }
   revision "2025-08-10" {
