@@ -29,7 +29,7 @@ submodule openconfig-ospf-global {
     description
       "Add send-default-route container to the OSPF global
       structure, allowing origination of a default external route,
-      equivalent send-default-route of BGP global and neighbors
+      equivalent to send-default-route of BGP global and neighbors
       config.";
     reference "0.2.0";
   }
