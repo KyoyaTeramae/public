@@ -468,9 +468,9 @@ submodule openconfig-ospf-global {
 
       container route-preference {
         description
-          "Administrative distance (or preference) assigned to
-          routes received via different OSPF route types (intra-area,
-          inter-area, external)";
+          "Administrative distance (preference) assigned to routes
+          per different OSPF route type, intra-area, inter-area,
+          external routes.";
 
         container config {
           description
