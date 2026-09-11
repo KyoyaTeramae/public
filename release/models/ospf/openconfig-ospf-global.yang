@@ -243,7 +243,9 @@ submodule openconfig-ospf-global {
     }
 
     leaf metric {
-      type oc-ospft:ospf-metric;
+      type uint32 {
+        range "0..16777214";
+      }
       description
         "The metric to advertise for the originated default
         external route.";
