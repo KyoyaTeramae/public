@@ -222,8 +222,9 @@ submodule openconfig-ospf-global {
 
     leaf reference-bandwidth {
       type uint32;
+      units Mbps;
       description
-        "The reference bandwidth, in Mbit/s, used by the local
+        "The reference bandwidth, in Mbps, used by the local
         system to calculate the default metric for an interface
         based on its bandwidth. Equivalent to the
         reference-bandwidth leaf on the ISIS global config.";
